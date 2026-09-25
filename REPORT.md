@@ -17,7 +17,7 @@ Initial directory structure created: `src/`, `include/`, `lib/`, `bin/`, `obj/`,
 The rule `$(TARGET): $(OBJECTS)` directly links individual `.o` object files into an executable binary (`bin/client`).  
 In contrast, linking against a library (using `-Llib -lmyutils`) links the executable against a pre-compiled library archive (`.a`) or shared object (`.so`) rather than raw object files.
 
-### Question 2: What is a git tag? What is the difference between a simple tag and an annotated tag?
+### Question 3: What is a git tag? What is the difference between a simple tag and an annotated tag?
 **Answer:**  
 A Git tag marks a specific commit as a release point (e.g. `v1.0`).  
 - **Simple tag:** Just a bookmark pointing to a commit hash.  
@@ -55,11 +55,20 @@ Position-Independent Code (`-fPIC`) generates machine code using relative memory
 
 ### Question 2: Explain the difference in file size between your static and dynamic clients.
 **Answer:**  
-`client_static` is significantly larger than `client_dynamic`.  
+`client_static` is larger than `client_dynamic`.  
 - **Static binary:** Contains the complete compiled machine code of all library functions embedded inside the binary file.  
-- **Dynamic binary:** Contains only stub symbols and dynamic linking instructions. The actual function code remains inside `libmyutils.so` and is loaded into memory at runtime by the OS dynamic linker (`ld.so`).
+- **Dynamic binary:** Contains only stub symbols and dynamic linking instructions. The actual function code remains inside `libmyutils.so` and is loaded into memory at runtime by the OS dynamic loader (`ld.so`).
 
 ### Question 3: What is LD_LIBRARY_PATH and why was it necessary to set it?
 **Answer:**  
 `LD_LIBRARY_PATH` is an environment variable that tells the Linux OS dynamic loader (`ld-linux.so`) where to search for shared libraries (`.so` files) at runtime, in addition to standard directories like `/lib` and `/usr/lib`.  
 It was necessary to export `LD_LIBRARY_PATH=$PWD/lib` because custom libraries in non-standard directories are not automatically searched by the OS dynamic loader.
+
+---
+
+## Feature 5: Creating and Accessing Man Pages & Installation
+
+### Summary of Implementation:
+- Standard groff manual pages created under `man/man3/`: `mystrlen.3`, `mystrcpy.3`, `mystrncpy.3`, `mystrcat.3`, `wordCount.3`, `mygrep.3`.
+- Added `install` target to root `Makefile` to install binary executable into `/usr/local/bin/client` and man pages into `/usr/local/share/man/man3/`.
+- Tested installation via `sudo make install`, running `client` globally, and viewing manual pages via `man mystrlen`.
