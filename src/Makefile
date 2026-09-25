@@ -1,4 +1,4 @@
-# src/Makefile - Compiles source files to objects recursively
+# src/Makefile - Compiles source files to object files
 
 CC       = gcc
 CFLAGS   = -Wall -Wextra
