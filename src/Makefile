@@ -1,7 +1,7 @@
-# src/Makefile - Compiles source files to object files
+# src/Makefile - Compiles source files to object files with -fPIC
 
 CC       = gcc
-CFLAGS   = -Wall -Wextra
+CFLAGS   = -Wall -Wextra -fPIC
 OBJDIR   = ../obj
 INCDIR   = ../include
 
